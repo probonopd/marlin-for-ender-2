@@ -1,0 +1,62 @@
+dist: trusty
+sudo: true
+language: c
+
+before_install:
+  - cd ..
+  - git clone https://github.com/MarlinFirmware/Marlin
+  - cd Marlin
+  - export TRAVIS_BUILD_DIR=$(readlink -f .)
+  - git checkout 1.1.x
+  - chmod +x ${TRAVIS_BUILD_DIR}/buildroot/bin/*
+  - export PATH=${TRAVIS_BUILD_DIR}/buildroot/bin/:${PATH}
+  - "/sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_1.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :1 -ac -screen 0 1280x1024x16"
+  - sleep 3
+  - export DISPLAY=:1.0
+
+install:
+  # Install arduino 1.8.5
+  - wget http://downloads.arduino.cc/arduino-1.8.5-linux64.tar.xz
+  - tar xf arduino-1.8.5-linux64.tar.xz
+  - sudo mv arduino-1.8.5 /usr/local/share/arduino
+  - ln -s /usr/local/share/arduino/arduino ${TRAVIS_BUILD_DIR}/buildroot/bin/arduino
+  # Install Sanguino board
+  - arduino --pref "boardsmanager.additional.urls=https://raw.githubusercontent.com/Lauszus/Sanguino/master/package_lauszus_sanguino_index.json" --save-prefs
+  - arduino --install-boards Sanguino:avr
+  - arduino --board Sanguino:avr:sanguino:cpu=atmega1284p --save-prefs
+  # Install libraries
+  - cd /usr/local/share/arduino/libraries/
+  - git clone https://github.com/kiyoshigawa/LiquidCrystal_I2C.git
+  - git clone https://github.com/lincomatic/LiquidTWI2.git
+  - git clone https://github.com/olikraus/U8glib_Arduino.git
+  - git clone https://github.com/teemuatlut/TMC2130Stepper.git
+  - git clone https://github.com/teemuatlut/TMC2208Stepper.git
+  - git clone https://github.com/adafruit/Adafruit_NeoPixel.git
+  - cd -
+
+before_script:
+  # Change current working directory to the build dir
+  - cd ${TRAVIS_BUILD_DIR}
+  # Generate custom version include
+  - generate_version_header_for_marlin ${TRAVIS_BUILD_DIR}/Marlin
+  - cat ${TRAVIS_BUILD_DIR}/Marlin/_Version.h
+
+script:
+  - use_example_configs Creality/Ender-2
+  - opt_enable DISABLE_BOOT
+  - opt_enable LIN_ADVANCE
+  - sed -i -e 's|//#define FAN_MAX_PWM 128|#define FAN_MAX_PWM 128|g' Marlin/Configuration_adv.h # 10% fan speed for Petsfang to fix layer bonding
+  - sed -i -e 's|#define SHOW_CUSTOM_BOOTSCREEN|//#define SHOW_CUSTOM_BOOTSCREEN|g' Marlin/Configuration.h # Make it stock
+  - sed -i -e 's|#define CUSTOM_STATUS_SCREEN_IMAGE|//#define CUSTOM_STATUS_SCREEN_IMAGE|g' Marlin/Configuration.h # Make it stock
+  # build_marlin # https://github.com/MarlinFirmware/Marlin/issues/14529
+  - arduino --verify --board Sanguino:avr:sanguino:cpu=atmega1284p --pref build.path=build Marlin/Marlin.ino
+  - find build/
+
+after_success:
+  - wget -c https://github.com/probonopd/uploadtool/raw/master/upload.sh
+  - bash upload.sh build/*.hex
+
+branches:
+  except:
+    - # Do not build tags that we create when we upload to GitHub Releases
+- /^(?i:continuous)$/
