@@ -4,5 +4,6 @@ This builds [Marlin firmware](https://github.com/MarlinFirmware/Marlin) for Crea
 
 ## Flashing with USBASP
 
+* Connect USBASP to 6-pin header, DO NOT connect VCC from the USBASP to the printer. Have the printer powered by its PSU
 * Backup the original firmware with `sudo avrdude -p atmega1284p -c usbasp -F -U flash:r:factory.hex:i`.
 * Flash this firmware with `sudo avrdude -p m1284p -c usbasp -F -U flash:w:'/home/me/Downloads/Marlin.ino.hex':i`. A bootloader is not needed!
