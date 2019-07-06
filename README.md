@@ -1,6 +1,6 @@
-# Marlin firmware for Creality Ender-2
+# [![Build Status](https://travis-ci.com/probonopd/marlin-for-ender-2.svg?branch=master)](https://travis-ci.com/probonopd/marlin-for-ender-2) Marlin firmware for Creality Ender-2
 
-This builds [Marlin firmware](https://github.com/MarlinFirmware/Marlin) for Creality Ender-2 on [Travis CI](https://travis-ci.com/probonopd/marlin-for-ender-2). The resulting firmware can be downloaded from https://github.com/probonopd/marlin-for-ender-2/releases/continuous.
+This builds [Marlin firmware](https://github.com/MarlinFirmware/Marlin) for Creality Ender-2 on [Travis CI](https://travis-ci.com/probonopd/marlin-for-ender-2). The resulting firmware can be downloaded from [here](https://github.com/probonopd/marlin-for-ender-2/releases/download/continuous/Marlin.ino.hex).
 
 ## Changes
 
