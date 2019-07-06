@@ -1,3 +1,8 @@
 # Marlin firmware for Creality Ender-2
 
 This builds [Marlin firmware](https://github.com/MarlinFirmware/Marlin) for Creality Ender-2 on [Travis CI](https://travis-ci.com/probonopd/marlin-for-ender-2). The resulting firmware can be downloaded from https://github.com/probonopd/marlin-for-ender-2/releases/continuous.
+
+## Flashing with USBASP
+
+* Backup the original firmware with `sudo avrdude -p atmega1284p -c usbasp -F -U flash:r:factory.hex:i`.
+* Flash this firmware with `sudo avrdude -p m1284p -c usbasp -F -U flash:w:'/home/me/Downloads/Marlin.ino.hex':i`. A bootloader is not needed!
