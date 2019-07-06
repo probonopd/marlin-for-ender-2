@@ -48,6 +48,7 @@ script:
   - opt_enable ADVANCED_PAUSE_FEATURE # Change filament in menu
   - opt_enable LCD_BED_LEVELING # In the LCD menu
   - opt_enable MESH_BED_LEVELING # Needed by the above
+  - opt_enable LEVEL_BED_CORNERS # Add a menu item to move between bed corners for manual bed adjustment
   - sed -i -e 's|//#define FAN_MAX_PWM 128|#define FAN_MAX_PWM 64|g' Marlin/Configuration_adv.h # 25% fan speed for Petsfang to fix layer bonding
   - sed -i -e 's|#define SHOW_CUSTOM_BOOTSCREEN|//#define SHOW_CUSTOM_BOOTSCREEN|g' Marlin/Configuration.h # Make it stock
   - sed -i -e 's|#define CUSTOM_STATUS_SCREEN_IMAGE|//#define CUSTOM_STATUS_SCREEN_IMAGE|g' Marlin/Configuration.h # Make it stock
