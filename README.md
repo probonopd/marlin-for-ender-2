@@ -6,6 +6,7 @@ This builds [Marlin firmware](https://github.com/MarlinFirmware/Marlin) for Crea
 
 * Stock Marlin boot logo
 * `LIN_ADVANCE` enabled
+* Optional part cooling fan runs at reduced speed to improve layer adhesion (I am using a [Petsfang](https://www.thingiverse.com/thing:2759439))
 
 Let me know if you would like to see additional changes.
 
