@@ -2,6 +2,13 @@
 
 This builds [Marlin firmware](https://github.com/MarlinFirmware/Marlin) for Creality Ender-2 on [Travis CI](https://travis-ci.com/probonopd/marlin-for-ender-2). The resulting firmware can be downloaded from https://github.com/probonopd/marlin-for-ender-2/releases/continuous.
 
+## Changes
+
+* Stock Marlin boot logo
+* `LIN_ADVANCE` enabled
+
+Let me know if you would like to see additional changes.
+
 ## Flashing with USBASP
 
 * Connect USBASP to 6-pin header, DO NOT connect VCC from the USBASP to the printer. Have the printer powered by its PSU
