@@ -43,7 +43,7 @@ before_script:
   - cat ${TRAVIS_BUILD_DIR}/Marlin/_Version.h
 
 script:
-  - use_example_configs Creality/Ender-2
+  # use_example_configs Creality/Ender-2
   - cat  Marlin/Conf*.h
   - arduino --verify --board Sanguino:avr:sanguino:cpu=atmega1284p --pref build.path=build Marlin/Marlin.ino
   - VERSION=$(grep -r "* Version:" ${TRAVIS_BUILD_DIR}/Marlin/_Version.h | cut -d ":" -f 2 | sed -e 's| ||g')
