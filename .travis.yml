@@ -8,7 +8,7 @@ before_install:
   - git clone https://github.com/MarlinFirmware/Marlin
   - cd Marlin
   - export TRAVIS_BUILD_DIR=$(readlink -f .)
-  - git checkout bugfix-2.0.x
+  - git checkout bugfix-1.1.x
   - chmod +x ${TRAVIS_BUILD_DIR}/buildroot/bin/*
   - export PATH=${TRAVIS_BUILD_DIR}/buildroot/bin/:${PATH}
   - "/sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_1.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :1 -ac -screen 0 1280x1024x16"
@@ -43,7 +43,18 @@ before_script:
   - cat ${TRAVIS_BUILD_DIR}/Marlin/_Version.h
 
 script:
-  # use_example_configs Creality/Ender-2
+  - use_example_configs Creality/Ender-2
+  - opt_enable DISABLE_BOOT
+  - opt_enable LIN_ADVANCE # Linear advance
+  - opt_enable ADVANCED_PAUSE_FEATURE # Change filament in menu
+  - opt_enable LCD_BED_LEVELING # In the LCD menu
+  - opt_enable MESH_BED_LEVELING # Needed by the above
+  - opt_enable LEVEL_BED_CORNERS # Add a menu item to move between bed corners for manual bed adjustment
+  - opt_enable S_CURVE_ACCELERATION # Reduce frame jerks and vibrations
+  - sed -i -e 's|//#define FAN_MAX_PWM 128|#define FAN_MAX_PWM 64|g' Marlin/Configuration_adv.h # 25% fan speed for Petsfang to fix layer bonding
+  - sed -i -e 's|#define SHOW_CUSTOM_BOOTSCREEN|//#define SHOW_CUSTOM_BOOTSCREEN|g' Marlin/Configuration.h # Make it stock
+  - sed -i -e 's|#define CUSTOM_STATUS_SCREEN_IMAGE|//#define CUSTOM_STATUS_SCREEN_IMAGE|g' Marlin/Configuration.h # Make it stock
+  # build_marlin # https://github.com/MarlinFirmware/Marlin/issues/14529
   - cat  Marlin/Conf*.h
   - arduino --verify --board Sanguino:avr:sanguino:cpu=atmega1284p --pref build.path=build Marlin/Marlin.ino
   - VERSION=$(grep -r "* Version:" ${TRAVIS_BUILD_DIR}/Marlin/_Version.h | cut -d ":" -f 2 | sed -e 's| ||g')
