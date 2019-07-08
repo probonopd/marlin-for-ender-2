@@ -46,7 +46,7 @@ script:
   - use_example_configs Creality/Ender-2
   - cat  Marlin/Conf*.h
   - arduino --verify --board Sanguino:avr:sanguino:cpu=atmega1284p --pref build.path=build Marlin/Marlin.ino
-  - VERSION=$(grep -r "* Version:" ${TRAVIS_BUILD_DIR}/Marlin/_Version.h | cut -d ":" -f 2 | sed -e 's| ||g')
+  - VERSION=$(grep -r "DETAILED_BUILD_VERSION" ${TRAVIS_BUILD_DIR}/Marlin/_Version.h | cut -d '"' -f 2)
   - mv build/Marlin.ino.hex $HOME/out/Marlin-$VERSION.ino.hex
   - mv build/Marlin.ino.with_bootloader.hex $HOME/out//Marlin-$VERSION.ino.with_bootloader.hex
 
