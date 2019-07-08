@@ -57,6 +57,9 @@ script:
   - cat  Marlin/Conf*.h
   - arduino --verify --board Sanguino:avr:sanguino:cpu=atmega1284p --pref build.path=build Marlin/Marlin.ino
   - find build/
+  - VERSION=$(grep -r "* Version:" ${TRAVIS_BUILD_DIR}/Marlin/_Version.h | cut -d ":" -f 2 | sed -e 's| ||g')
+  - mv build/Marlin.ino.hex build/Marlin-$VERSION.ino.hex
+  - mv build/Marlin.ino.with_bootloader.hex build/Marlin-$VERSION.ino.with_bootloader.hex
 
 after_success:
   - wget -c https://github.com/probonopd/uploadtool/raw/master/upload.sh
