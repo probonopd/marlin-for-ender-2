@@ -9,6 +9,7 @@ before_install:
   - cd Marlin
   - export TRAVIS_BUILD_DIR=$(readlink -f .)
   - git checkout bugfix-1.1.x
+  - export UPLOADTOOL_SUFFIX=bugfix-1.1.x
   - chmod +x ${TRAVIS_BUILD_DIR}/buildroot/bin/*
   - export PATH=${TRAVIS_BUILD_DIR}/buildroot/bin/:${PATH}
   - "/sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_1.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :1 -ac -screen 0 1280x1024x16"
