@@ -46,6 +46,7 @@ before_script:
 script:
   - use_example_configs Creality/Ender-2
   - opt_enable_adv LIN_ADVANCE # Linear advance
+  - opt_enable_adv NOZZLE_PARK_FEATURE # Needed for ADVANCED_PAUSE_FEATURE
   - opt_enable_adv ADVANCED_PAUSE_FEATURE # Change filament in menu
   - opt_enable LCD_BED_LEVELING # In the LCD menu
   - opt_enable MESH_BED_LEVELING # Needed by the above
