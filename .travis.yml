@@ -45,18 +45,21 @@ before_script:
 
 script:
   - use_example_configs Creality/Ender-2
-  - opt_enable DISABLE_BOOT
-  - opt_enable LIN_ADVANCE # Linear advance
-  - opt_enable ADVANCED_PAUSE_FEATURE # Change filament in menu
+  - opt_enable_adv LIN_ADVANCE # Linear advance
+  - opt_enable_adv ADVANCED_PAUSE_FEATURE # Change filament in menu
   - opt_enable LCD_BED_LEVELING # In the LCD menu
   - opt_enable MESH_BED_LEVELING # Needed by the above
   - opt_enable LEVEL_BED_CORNERS # Add a menu item to move between bed corners for manual bed adjustment
   - opt_enable S_CURVE_ACCELERATION # Reduce frame jerks and vibrations
-  - sed -i -e 's|//#define FAN_MAX_PWM 128|#define FAN_MAX_PWM 64|g' Marlin/Configuration_adv.h # 25% fan speed for Petsfang to fix layer bonding
+  - opt_set_adv FAN_MAX_PWM 64 # 25% fan speed for Petsfang to fix layer bonding
   - opt_disable SHOW_CUSTOM_BOOTSCREEN # Make it stock
   - opt_disable CUSTOM_STATUS_SCREEN_IMAGE # Make it stock
-  # build_marlin # https://github.com/MarlinFirmware/Marlin/issues/14529
+  - opt_disable_adv ARC_SUPPORT # save ~3226 bytes
+  - opt_enable EEPROM_SETTINGS # Make it possible to save e.g., e-steps
+  - opt_set DEFAULT_AXIS_STEPS_PER_UNIT "{ 80, 80, 400, 102 }" # 102 e-steps
+  - opt_set DEFAULT_MAX_ACCELERATION "{ 3000, 3000, 100, 10000 }" # Make it faster
   - cp Marlin/Conf*.h $HOME/out/
+  # build_marlin # https://github.com/MarlinFirmware/Marlin/issues/14529
   - arduino --verify --board Sanguino:avr:sanguino:cpu=atmega1284p --pref build.path=build Marlin/Marlin.ino
   - VERSION=$(grep -r "* Version:" ${TRAVIS_BUILD_DIR}/Marlin/_Version.h | cut -d ":" -f 2 | sed -e 's| ||g')
   - mv build/Marlin.ino.hex $HOME/out/Marlin-$VERSION.ino.hex
