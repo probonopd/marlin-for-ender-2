@@ -35,6 +35,7 @@ install:
   - git clone https://github.com/teemuatlut/TMC2208Stepper.git
   - git clone https://github.com/adafruit/Adafruit_NeoPixel.git
   - cd -
+  - find $HOME -name 'platform.local.txt'
 
 before_script:
   # Change current working directory to the build dir
