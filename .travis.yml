@@ -18,7 +18,7 @@ before_install:
 
 install:
   # Install arduino 1.8.5
-  - wget http://downloads.arduino.cc/arduino-1.8.5-linux64.tar.xz
+  - wget -nv http://downloads.arduino.cc/arduino-1.8.5-linux64.tar.xz
   - tar xf arduino-1.8.5-linux64.tar.xz
   - sudo mv arduino-1.8.5 /usr/local/share/arduino
   - ln -s /usr/local/share/arduino/arduino ${TRAVIS_BUILD_DIR}/buildroot/bin/arduino
@@ -35,7 +35,8 @@ install:
   - git clone https://github.com/teemuatlut/TMC2208Stepper.git
   - git clone https://github.com/adafruit/Adafruit_NeoPixel.git
   - cd -
-  - find $HOME -name 'platform.local.txt'
+  - find /usr/local/share/arduino -name 'platform.txt'
+  - find /usr/local/share/arduino -name 'platform.txt' -exec cat {} \;
 
 before_script:
   # Change current working directory to the build dir
