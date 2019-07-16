@@ -66,7 +66,7 @@ script:
   - opt_enable LCD_BED_LEVELING # In the LCD menu # May need to be disabled due to space
   - opt_enable AUTO_BED_LEVELING_3POINT # In the LCD menu # May need to be disabled due to space
   # Set the probe points exactly over the adjustment screws
-  - opt_set PROBE_MANUALLY
+  - opt_enable PROBE_MANUALLY
   - opt_set PROBE_PT_1_X 20
   - opt_set PROBE_PT_1_Y 60
   - opt_set PROBE_PT_2_X 115
