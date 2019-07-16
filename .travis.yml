@@ -63,9 +63,9 @@ script:
   - opt_set_adv PAUSE_PARK_NOZZLE_TIMEOUT 180 # Filament load/unload in the menu
   - opt_set_adv FILAMENT_CHANGE_NUMBER_OF_ALERT_BEEPS 5 # Filament load/unload in the menu
   #
-  - opt_enable LCD_BED_LEVELING # In the LCD menu
-  - opt_enable MESH_BED_LEVELING # Needed by the above
-  - opt_enable LEVEL_BED_CORNERS # Add a menu item to move between bed corners for manual bed adjustment
+  # opt_enable LCD_BED_LEVELING # In the LCD menu # Disabled due to space
+  # opt_enable MESH_BED_LEVELING # Needed by the above # Disabled due to space
+  # opt_enable LEVEL_BED_CORNERS # Add a menu item to move between bed corners for manual bed adjustment # Disabled due to space
   - opt_enable S_CURVE_ACCELERATION # Reduce frame jerks and vibrations
   - opt_set_adv FAN_MAX_PWM 64 # 25% fan speed for Petsfang to fix layer bonding
   - opt_disable SHOW_CUSTOM_BOOTSCREEN # Make it stock
