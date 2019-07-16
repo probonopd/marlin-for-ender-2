@@ -66,12 +66,13 @@ script:
   - opt_enable LCD_BED_LEVELING # In the LCD menu # May need to be disabled due to space
   - opt_enable AUTO_BED_LEVELING_3POINT # In the LCD menu # May need to be disabled due to space
   # Set the probe points exactly over the adjustment screws
-  - opt_set PROBE_PT_1_X 30
+  - opt_set PROBE_MANUALLY
+  - opt_set PROBE_PT_1_X 20
   - opt_set PROBE_PT_1_Y 60
-  - opt_set PROBE_PT_2_X 125
+  - opt_set PROBE_PT_2_X 115
   - opt_set PROBE_PT_2_Y 30
-  - opt_set PROBE_PT_3_X 100
-  - opt_set PROBE_PT_3_Y 120
+  - opt_set PROBE_PT_3_X 95
+  - opt_set PROBE_PT_3_Y 130
   # opt_enable MESH_BED_LEVELING # Needed by the above # Disabled due to space
   # opt_enable LEVEL_BED_CORNERS # Add a menu item to move between bed corners for manual bed adjustment # Disabled due to space
   - opt_enable S_CURVE_ACCELERATION # Reduce frame jerks and vibrations
