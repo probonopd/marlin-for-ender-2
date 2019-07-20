@@ -11,7 +11,7 @@ This builds [Marlin firmware](https://github.com/MarlinFirmware/Marlin) for Crea
 * Compiler optimizations for size enabled
 * Optional part cooling fan runs at reduced speed to improve layer adhesion (I am using a [Petsfang](https://www.thingiverse.com/thing:2759439))
 
-I use this with CreawsomeMod settings for Cura, but __100 mm/s__ printing speed (more may be possible).
+I use this with CreawsomeMod settings for Cura, but __130 mm/s__ printing speed (more may be possible).
 
 Let me know if you would like to see additional changes.
 
