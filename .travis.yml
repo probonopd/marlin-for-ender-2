@@ -84,11 +84,11 @@ script:
   # opt_enable LEVEL_BED_CORNERS # Add a menu item to move between bed corners for manual bed adjustment # Disabled due to space
   - opt_enable S_CURVE_ACCELERATION # Reduce frame jerks and vibrations
   - opt_set_adv FAN_MAX_PWM 64 # 25% fan speed for Petsfang to fix layer bonding
-  - opt_disable SHOW_BOOTSCREEN # Hopefully save some space
+  # opt_disable SHOW_BOOTSCREEN # Hopefully save some space
   - opt_disable SHOW_CUSTOM_BOOTSCREEN # Make it stock
   - opt_disable CUSTOM_STATUS_SCREEN_IMAGE # Make it stock
   - opt_disable_adv ARC_SUPPORT # save ~3226 bytes
-  - opt_enable EEPROM_SETTINGS # Make it possible to save e.g., e-steps
+  # opt_enable EEPROM_SETTINGS # Make it possible to save e.g., e-steps # Disabled due to space # # # # #
   - opt_set DEFAULT_AXIS_STEPS_PER_UNIT "{ 80, 80, 400, 102 }" # 102 e-steps
   - opt_set DEFAULT_MAX_ACCELERATION "{ 3000, 3000, 100, 10000 }" # Make it faster
   - cp Marlin/Conf*.h $HOME/out/
