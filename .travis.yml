@@ -51,8 +51,8 @@ before_script:
 script:
   - use_example_configs Creality/Ender-2
   - opt_disable EEPROM_CHITCHAT # Save PROGMEM space
-  - opt_set TX_BUFFER_SIZE 0  # Save PROGMEM space
-  - opt_set RX_BUFFER_SIZE 32 # Save PROGMEM space
+  - opt_set_adv TX_BUFFER_SIZE 0  # Save PROGMEM space
+  - opt_set_adv RX_BUFFER_SIZE 32 # Save PROGMEM space
   - opt_enable_adv LIN_ADVANCE # Linear advance
   - opt_set_adv LIN_ADVANCE_K 1.0 # Preconfigure K to 1.0; this needs to be changed in GCODE for different materials and temperatures
   - opt_enable NOZZLE_PARK_FEATURE # Needed for ADVANCED_PAUSE_FEATURE # Filament load/unload in the menu
