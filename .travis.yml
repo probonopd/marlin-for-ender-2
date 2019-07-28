@@ -45,17 +45,47 @@ before_script:
 
 script:
   - use_example_configs Creality/Ender-2
+  - opt_disable EEPROM_CHITCHAT # Save PROGMEM space
+  - opt_enable SLIM_LCD_MENUS # Save PROGMEM space
+  - opt_enable DISABLE_M503 # Save PROGMEM space
   - opt_enable LINANCE # Linear advance
-  - opt_enable NOZZLE_PARK_FEATURE # Needed for ADVANCED_PAUSE_FEATURE
-  - opt_enable ADVANCED_PAUSE_FEATURE # Change filament in menu
-  - opt_enable LCD_BED_LEVELING # In the LCD menu
-  - opt_enable MESH_BED_LEVELING # Needed by the above
+  - opt_set LINANCE_K 1.0 # Preconfigure K to 1.0; this needs to be changed in GCODE for different materials and temperatures
+  - opt_enable NOZZLE_PARK_FEATURE # Needed for ADVANCED_PAUSE_FEATURE # Filament load/unload in the menu
+  # https://www.thingiverse.com/thing:3057052 # Filament load/unload in the menu
+  - opt_enable PARK_HEAD_ON_PAUSE # Filament load/unload in the menu
+  - opt_enable ADVANCED_PAUSE_FEATURE # Filament load/unload in the menu
+  - opt_enable PAUSE_PARK_NO_STEPPER_TIMEOUT # Filament load/unload in the menu
+  - opt_set PAUSE_PARK_RETRACT_FEEDRATE 200 # Filament load/unload in the menu
+  - opt_set PAUSE_PARK_RETRACT_LENGTH 5 # Filament load/unload in the menu
+  - opt_set FILAMENT_CHANGE_UNLOAD_FEEDRATE 150 # Filament load/unload in the menu
+  - opt_set EXTRUDE_MAXLENGTH 300 # Needed for the next line
+  - opt_set FILAMENT_CHANGE_UNLOAD_LENGTH 300   # Filament load/unload in the menu   
+  - opt_set FILAMENT_CHANGE_LOAD_FEEDRATE 100 # Filament load/unload in the menu
+  - opt_set FILAMENT_CHANGE_LOAD_LENGTH 320 # Filament load/unload in the menu
+  - opt_set ADVANCED_PAUSE_EXTRUDE_FEEDRATE 3 # Filament load/unload in the menu
+  - opt_set ADVANCED_PAUSE_EXTRUDE_LENGTH 50 # Filament load/unload in the menu
+  - opt_set PAUSE_PARK_NOZZLE_TIMEOUT 180 # Filament load/unload in the menu
+  - opt_set FILAMENT_CHANGE_NUMBER_OF_ALERT_BEEPS 5 # Filament load/unload in the menu
+  #
+  - opt_enable LCD_BED_LEVELING # In the LCD menu # May need to be disabled due to space
+  - opt_enable AUTO_BED_LEVELING_3POINT # In the LCD menu # May need to be disabled due to space
+  # Set the probe points exactly over the adjustment screws
+  - opt_enable PROBE_MANUALLY
+  - opt_set PROBE_PT_1_X 20
+  - opt_set PROBE_PT_1_Y 60
+  - opt_set PROBE_PT_2_X 115
+  - opt_set PROBE_PT_2_Y 30
+  - opt_set PROBE_PT_3_X 95
+  - opt_set PROBE_PT_3_Y 130
+  # opt_enable MESH_BED_LEVELING # Needed by the above # Disabled due to space
+  # opt_enable LEVEL_BED_CORNERS # Add a menu item to move between bed corners for manual bed adjustment # Disabled due to space
   - opt_enable S_CURVE_ACCELERATION # Reduce frame jerks and vibrations
   - opt_set FAN_MAX_PWM 64 # 25% fan speed for Petsfang to fix layer bonding
+  # opt_disable SHOW_BOOTSCREEN # Hopefully save some space
   - opt_disable SHOW_CUSTOM_BOOTSCREEN # Make it stock
   - opt_disable CUSTOM_STATUS_SCREEN_IMAGE # Make it stock
   - opt_disable ARC_SUPPORT # save ~3226 bytes
-  # opt_enable EEPROM_SETTINGS # Make it possible to save e.g., e-steps
+  - opt_enable EEPROM_SETTINGS # Make it possible to save e.g., e-steps # May need to be disabled due to space # # # # #
   - opt_set DEFAULT_AXIS_STEPS_PER_UNIT "{ 80, 80, 400, 102 }" # 102 e-steps
   - opt_set DEFAULT_MAX_ACCELERATION "{ 3000, 3000, 100, 10000 }" # Make it faster
   - cp Marlin/Conf*.h $HOME/out/
