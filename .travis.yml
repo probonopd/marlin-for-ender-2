@@ -90,7 +90,7 @@ script:
   - opt_disable SHOW_CUSTOM_BOOTSCREEN # Make it stock
   - opt_disable CUSTOM_STATUS_SCREEN_IMAGE # Make it stock
   - opt_disable_adv ARC_SUPPORT # save ~3226 bytes
-  # opt_enable EEPROM_SETTINGS # Make it possible to save e.g., e-steps # Disabled due to space # # # # #
+  - opt_enable EEPROM_SETTINGS # Make it possible to save e.g., e-steps # May need to be disabled due to space # # # # #
   - opt_set DEFAULT_AXIS_STEPS_PER_UNIT "{ 80, 80, 400, 102 }" # 102 e-steps
   - opt_set DEFAULT_MAX_ACCELERATION "{ 3000, 3000, 100, 10000 }" # Make it faster
   - cp Marlin/Conf*.h $HOME/out/
